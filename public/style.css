@@ -27,3 +27,40 @@
   background: #e3d3f5;
   transform: translateY(-1px);
 }
+.refleksi-bar {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.refleksi-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 14px 18px;
+  border-radius: 14px;
+
+  background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+  color: #3b1d6b;
+
+  font-weight: 600;
+  text-decoration: none;
+
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  transition: all 0.25s ease;
+}
+
+.refleksi-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+}
+
+.refleksi-link .icon {
+  font-size: 22px;
+}
+
+.refleksi-link .arrow {
+  font-size: 18px;
+  opacity: 0.8;
+}
