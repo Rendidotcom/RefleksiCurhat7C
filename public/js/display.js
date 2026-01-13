@@ -1,63 +1,41 @@
 /*************************************************
- * DISPLAY.JS — REFLEKSI CURHAT 7C (FINAL)
- * READ ONLY • NO FILTER • SAFE
+ * DISPLAY.JS — CURHAT 7C (FILTER MODE)
+ * READ ONLY • AMAN • SISWA FRIENDLY
  *************************************************/
 
-document.addEventListener("DOMContentLoaded", async () => {
+(async () => {
   const list = document.getElementById("list");
   const empty = document.getElementById("empty");
 
-  // HARD GUARD (tidak error, tidak rusak sistem)
+  // pengaman DOM
   if (!list || !empty) {
     console.warn("Elemen #list atau #empty tidak ditemukan");
     return;
   }
 
   try {
-    const res = await fetch(API_URL + "?mode=list", {
-      method: "GET",
-      redirect: "follow"
-    });
-
-    if (!res.ok) throw new Error("HTTP_ERROR");
-
+    // MODE FILTER DARI code.gs
+    const res = await fetch(API_URL + "?mode=list");
     const json = await res.json();
 
-    if (!json.ok || !Array.isArray(json.data)) {
-      empty.style.display = "block";
-      return;
-    }
-
-    // AMBIL LANGSUNG KOLOM B (TEXT) — TANPA FILTER
-    const texts = json.data
-      .map(row => {
-        // kompatibel: array ATAU object
-        if (typeof row === "string") return row;
-        if (Array.isArray(row)) return row[1];
-        if (row.text) return row.text;
-        return "";
-      })
-      .filter(t => typeof t === "string" && t.trim() !== "");
-
-    if (texts.length === 0) {
+    // validasi data
+    if (!json.ok || !Array.isArray(json.data) || json.data.length === 0) {
       empty.style.display = "block";
       return;
     }
 
     empty.style.display = "none";
-    list.innerHTML = "";
 
-    // TAMPILKAN TERBARU DI ATAS
-    texts.reverse().forEach(text => {
+    json.data.forEach(text => {
       const card = document.createElement("div");
       card.className = "card";
-      card.textContent = text; // NO FILTER
+      card.textContent = text;
       list.appendChild(card);
     });
 
   } catch (err) {
     console.error(err);
-    empty.textContent = "Gagal memuat refleksi 🌧️";
+    empty.textContent = "Gagal memuat refleksi teman";
     empty.style.display = "block";
   }
-});
+})();
