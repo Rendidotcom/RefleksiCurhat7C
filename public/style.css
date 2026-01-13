@@ -64,3 +64,37 @@
   font-size: 18px;
   opacity: 0.8;
 }
+#refleksi-list {
+  max-width: 720px;
+  margin: 32px auto 0;
+  padding: 0 16px;
+}
+
+.refleksi-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+
+.refleksi-text {
+  font-size: 1.05em;
+  line-height: 1.6;
+  color: #333;
+}
+
+.refleksi-time {
+  margin-top: 12px;
+  font-size: 0.85em;
+  color: #777;
+  text-align: right;
+}
+
+.loading,
+.empty,
+.error {
+  text-align: center;
+  color: #777;
+  font-size: 0.95em;
+}

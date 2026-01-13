@@ -5,125 +5,126 @@
 <title>Refleksi Curhat 7C</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- CONFIG -->
-<script src="js/config.js"></script>
-<script src="js/display.js" defer></script>
-
 <style>
   body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(180deg, #f7f9fc, #eef2f7);
     margin: 0;
-    padding: 0;
-    color: #2c3e50;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #f3f8ff, #fdf2ff);
+    padding: 24px 16px;
+    box-sizing: border-box;
   }
 
-  .container {
-    max-width: 720px;
-    margin: auto;
-    padding: 28px 20px 40px;
-  }
-
-  header {
+  .header {
     text-align: center;
     margin-bottom: 32px;
   }
 
-  header h2 {
+  .header h1 {
     margin: 0;
-    font-size: 26px;
-    font-weight: 700;
+    color: #5e35b1;
+    font-size: 1.8em;
   }
 
-  header p {
+  .header p {
     margin-top: 10px;
-    font-size: 15px;
     color: #555;
+    font-size: 0.95em;
+    line-height: 1.5;
   }
 
-  /* ===== CURHAT CARD ===== */
-  .curhat-card {
+  #refleksi-list {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .refleksi-card {
     background: #ffffff;
-    padding: 22px 20px;
-    margin-bottom: 18px;
     border-radius: 18px;
-    box-shadow: 0 10px 28px rgba(0,0,0,.06);
-    line-height: 1.75;
-    font-size: 15px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
   }
 
-  .curhat-card small {
-    display: block;
-    margin-top: 12px;
-    font-size: 12px;
-    color: #888;
+  .refleksi-text {
+    font-size: 1.05em;
+    line-height: 1.6;
+    color: #333;
   }
 
-  /* ===== STATE ===== */
-  .curhat-loading,
-  .curhat-empty,
-  .curhat-error {
+  .refleksi-time {
+    margin-top: 14px;
+    font-size: 0.85em;
+    color: #777;
+    text-align: right;
+  }
+
+  .loading,
+  .empty,
+  .error {
     text-align: center;
     color: #777;
-    font-size: 14px;
-    padding: 40px 20px;
+    font-size: 0.95em;
+    margin-top: 24px;
   }
 
-  /* ===== NAV ===== */
   .nav {
-    text-align: center;
     margin-top: 36px;
-  }
-
-  .nav a {
-    display: inline-block;
-    padding: 12px 22px;
-    border-radius: 999px;
-    background: #4a6cf7;
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    box-shadow: 0 6px 18px rgba(74,108,247,.35);
-  }
-
-  .nav a:hover {
-    opacity: .9;
-  }
-
-  footer {
     text-align: center;
-    margin-top: 28px;
-    font-size: 12px;
-    color: #999;
+  }
+
+  .back-btn {
+    display: inline-block;
+    padding: 14px 22px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #7b1fa2, #512da8);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    transition: all 0.25s ease;
+  }
+
+  .back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+  }
+
+  .footer-note {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.8em;
+    color: #888;
   }
 </style>
 </head>
 
 <body>
-<div class="container">
 
-  <header>
-    <h2>Refleksi Curhat 7C</h2>
+  <div class="header">
+    <h1>🌱 Refleksi Curhat 7C</h1>
     <p>
-      Potongan cerita yang dipilih dengan hati-hati.  
-      Untuk dibaca, direnungkan, dan dihargai.
+      Potongan cerita yang dipilih dengan hati-hati.<br>
+      Untuk dibaca, direnungkan, dan dihargai bersama.
     </p>
-  </header>
-
-  <!-- DISPLAY -->
-  <div id="curhat-list">
-    <div class="curhat-loading">Memuat refleksi…</div>
   </div>
 
-  <!-- NAV -->
+  <!-- LIST REFLEKSI -->
+  <div id="refleksi-list"></div>
+
+  <!-- NAVIGASI -->
   <div class="nav">
-    <a href="curhat.html">Kembali Menulis Curhat</a>
+    <a href="curhat.html" class="back-btn">
+      ✍️ Kembali Menulis Curhat
+    </a>
   </div>
 
-  <footer>
+  <div class="footer-note">
     Media refleksi • bukan media sosial
-  </footer>
+  </div>
 
-</div>
+<script src="js/config.js"></script>
+<script src="js/display.js" defer></script>
+
 </body>
 </html>

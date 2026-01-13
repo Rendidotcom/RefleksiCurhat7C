@@ -1,64 +1,76 @@
 /*************************************************
- * DISPLAY.JS — CURHAT 7C (READ ONLY)
- * Menampilkan curhat 3 hari terakhir
- * Sudah difilter di server (GAS)
+ * DISPLAY.JS — REFLEKSI CURHAT 7C (FINAL)
+ * Menampilkan refleksi 3 hari terakhir
+ * Data dari Google Apps Script (mode=list)
  *************************************************/
 
-(function () {
-  // Pastikan API_URL ada
-  if (typeof API_URL === "undefined") {
-    console.error("API_URL belum didefinisikan di config.js");
-    return;
-  }
+document.addEventListener("DOMContentLoaded", loadRefleksi);
 
-  const container = document.getElementById("curhat-list");
-  if (!container) {
-    console.warn("Elemen #curhat-list tidak ditemukan");
-    return;
-  }
+async function loadRefleksi() {
+  const container = document.getElementById("refleksi-list");
+  if (!container) return;
 
-  // loading awal
   container.innerHTML = `
-    <div class="curhat-loading">
-      Memuat refleksi...
+    <div class="loading">
+      🌱 Memuat refleksi...
     </div>
   `;
 
-  fetch(API_URL + "?mode=display")
-    .then(res => res.json())
-    .then(res => {
-      container.innerHTML = "";
+  try {
+    const res = await fetch(`${API_URL}?mode=list`);
+    const json = await res.json();
 
-      if (!res.ok || !res.data || res.data.length === 0) {
-        container.innerHTML = `
-          <div class="curhat-empty">
-            Belum ada refleksi yang bisa ditampilkan 🌱
-          </div>
-        `;
-        return;
-      }
-
-      res.data.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "curhat-card";
-
-        const text = document.createElement("p");
-        text.textContent = item.text;
-
-        const date = document.createElement("small");
-        date.textContent = item.date;
-
-        card.appendChild(text);
-        card.appendChild(date);
-        container.appendChild(card);
-      });
-    })
-    .catch(err => {
-      console.error(err);
+    if (!json.ok || !json.data || json.data.length === 0) {
       container.innerHTML = `
-        <div class="curhat-error">
-          Refleksi tidak dapat dimuat saat ini.
+        <div class="empty">
+          Belum ada refleksi yang bisa ditampilkan 🌿
         </div>
       `;
+      return;
+    }
+
+    container.innerHTML = "";
+
+    json.data.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "refleksi-card";
+
+      card.innerHTML = `
+        <div class="refleksi-text">
+          “${escapeHTML(item.text)}”
+        </div>
+        <div class="refleksi-time">
+          ${formatDate(item.time)}
+        </div>
+      `;
+
+      container.appendChild(card);
     });
-})();
+
+  } catch (err) {
+    container.innerHTML = `
+      <div class="error">
+        Gagal memuat refleksi 🙏
+      </div>
+    `;
+    console.error(err);
+  }
+}
+
+/* ========= UTIL ========= */
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+  });
+}
+
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
