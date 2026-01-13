@@ -1,76 +1,39 @@
-/*************************************************
- * DISPLAY.JS — REFLEKSI CURHAT 7C (FINAL)
- * Menampilkan refleksi 3 hari terakhir
- * Data dari Google Apps Script (mode=list)
- *************************************************/
+(async () => {
+  const list = document.getElementById("list");
+  const empty = document.getElementById("empty");
 
-document.addEventListener("DOMContentLoaded", loadRefleksi);
-
-async function loadRefleksi() {
-  const container = document.getElementById("refleksi-list");
-  if (!container) return;
-
-  container.innerHTML = `
-    <div class="loading">
-      🌱 Memuat refleksi...
-    </div>
-  `;
+  if (!list || !empty) return;
 
   try {
-    const res = await fetch(`${API_URL}?mode=list`);
+    const res = await fetch(API_URL + "?mode=list");
     const json = await res.json();
 
-    if (!json.ok || !json.data || json.data.length === 0) {
-      container.innerHTML = `
-        <div class="empty">
-          Belum ada refleksi yang bisa ditampilkan 🌿
-        </div>
-      `;
+    if (!json.ok || !Array.isArray(json.data)) {
+      empty.style.display = "block";
       return;
     }
 
-    container.innerHTML = "";
+    // Ambil KOLOM B (index 1)
+    const texts = json.data
+      .map(row => row[1])
+      .filter(t => typeof t === "string" && t.trim() !== "");
 
-    json.data.forEach(item => {
+    if (texts.length === 0) {
+      empty.style.display = "block";
+      return;
+    }
+
+    empty.style.display = "none";
+
+    texts.reverse().forEach(text => {
       const card = document.createElement("div");
-      card.className = "refleksi-card";
-
-      card.innerHTML = `
-        <div class="refleksi-text">
-          “${escapeHTML(item.text)}”
-        </div>
-        <div class="refleksi-time">
-          ${formatDate(item.time)}
-        </div>
-      `;
-
-      container.appendChild(card);
+      card.className = "card";
+      card.textContent = text;
+      list.appendChild(card);
     });
 
   } catch (err) {
-    container.innerHTML = `
-      <div class="error">
-        Gagal memuat refleksi 🙏
-      </div>
-    `;
-    console.error(err);
+    empty.textContent = "Gagal memuat refleksi";
+    empty.style.display = "block";
   }
-}
-
-/* ========= UTIL ========= */
-
-function formatDate(dateStr) {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("id-ID", {
-    weekday: "long",
-    day: "numeric",
-    month: "long"
-  });
-}
-
-function escapeHTML(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
+})();
