@@ -5,114 +5,96 @@
 <title>Refleksi Curhat 7C</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- CONFIG & LOGIC -->
+<!-- CONFIG -->
 <script src="js/config.js"></script>
-<script src="js/upload.js"></script>
 <script src="js/display.js" defer></script>
 
 <style>
   body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    background: #f4f6f8;
+    background: linear-gradient(180deg, #f7f9fc, #eef2f7);
     margin: 0;
     padding: 0;
-  }
-
-  .container {
-    max-width: 680px;
-    margin: auto;
-    padding: 20px;
-  }
-
-  h2, h3 {
-    text-align: center;
     color: #2c3e50;
   }
 
-  p.desc {
+  .container {
+    max-width: 720px;
+    margin: auto;
+    padding: 28px 20px 40px;
+  }
+
+  header {
     text-align: center;
-    color: #555;
-    font-size: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 32px;
   }
 
-  /* ===== FORM ===== */
-  form {
-    background: #ffffff;
-    padding: 18px;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,.06);
-    margin-bottom: 28px;
+  header h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
   }
 
-  textarea {
-    width: 100%;
-    min-height: 120px;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid #ccc;
-    resize: vertical;
-    font-size: 14px;
-    box-sizing: border-box;
-  }
-
-  input[type="file"] {
-    margin-top: 12px;
-    font-size: 13px;
-  }
-
-  button {
-    margin-top: 16px;
-    width: 100%;
-    padding: 12px;
-    border-radius: 12px;
-    border: none;
-    background: #4a6cf7;
-    color: white;
+  header p {
+    margin-top: 10px;
     font-size: 15px;
-    cursor: pointer;
+    color: #555;
   }
 
-  button:disabled {
-    opacity: .6;
-    cursor: not-allowed;
-  }
-
-  /* ===== DISPLAY CURHAT ===== */
-  .display-section {
-    margin-top: 30px;
-  }
-
+  /* ===== CURHAT CARD ===== */
   .curhat-card {
     background: #ffffff;
-    padding: 16px;
-    margin-bottom: 14px;
-    border-radius: 16px;
-    box-shadow: 0 6px 16px rgba(0,0,0,.06);
-    line-height: 1.7;
+    padding: 22px 20px;
+    margin-bottom: 18px;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(0,0,0,.06);
+    line-height: 1.75;
+    font-size: 15px;
   }
 
   .curhat-card small {
     display: block;
-    margin-top: 8px;
-    color: #888;
+    margin-top: 12px;
     font-size: 12px;
+    color: #888;
   }
 
+  /* ===== STATE ===== */
   .curhat-loading,
   .curhat-empty,
   .curhat-error {
     text-align: center;
     color: #777;
-    padding: 20px;
     font-size: 14px;
+    padding: 40px 20px;
+  }
+
+  /* ===== NAV ===== */
+  .nav {
+    text-align: center;
+    margin-top: 36px;
+  }
+
+  .nav a {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: #4a6cf7;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    box-shadow: 0 6px 18px rgba(74,108,247,.35);
+  }
+
+  .nav a:hover {
+    opacity: .9;
   }
 
   footer {
     text-align: center;
+    margin-top: 28px;
     font-size: 12px;
     color: #999;
-    margin: 30px 0 10px;
   }
 </style>
 </head>
@@ -120,28 +102,22 @@
 <body>
 <div class="container">
 
-  <!-- ================= FORM CURHAT ================= -->
-  <h2>Curhat 7C</h2>
-  <p class="desc">
-    Tuliskan isi hatimu dengan jujur dan sopan.  
-    Tidak semua curhat akan ditampilkan.
-  </p>
+  <header>
+    <h2>Refleksi Curhat 7C</h2>
+    <p>
+      Potongan cerita yang dipilih dengan hati-hati.  
+      Untuk dibaca, direnungkan, dan dihargai.
+    </p>
+  </header>
 
-  <form id="curhatForm">
-    <textarea
-      id="curhat"
-      placeholder="Aku ingin bercerita tentang hari ini..."
-      required></textarea>
+  <!-- DISPLAY -->
+  <div id="curhat-list">
+    <div class="curhat-loading">Memuat refleksi…</div>
+  </div>
 
-    <input type="file" id="photo" accept="image/*">
-
-    <button type="submit">Kirim Curhat</button>
-  </form>
-
-  <!-- ================= DISPLAY ================= -->
-  <div class="display-section">
-    <h3>Refleksi 3 Hari Terakhir</h3>
-    <div id="curhat-list"></div>
+  <!-- NAV -->
+  <div class="nav">
+    <a href="curhat.html">Kembali Menulis Curhat</a>
   </div>
 
   <footer>
@@ -151,8 +127,3 @@
 </div>
 </body>
 </html>
-<div style="text-align:center; margin-bottom:16px;">
-  <a href="curhat.html" class="nav-btn">
-    Kembali Menulis Curhat
-  </a>
-</div>
