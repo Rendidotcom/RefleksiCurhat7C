@@ -7,3 +7,23 @@
   text-decoration: none;
   font-size: 14px;
 }
+.secondary-action {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #f1e7fa;
+  color: #6a1b9a;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #e3d3f5;
+  transform: translateY(-1px);
+}
