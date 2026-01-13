@@ -2,19 +2,157 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Upload Foto</title>
+<title>Refleksi Curhat 7C</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CONFIG & LOGIC -->
+<script src="js/config.js"></script>
+<script src="js/upload.js"></script>
+<script src="js/display.js" defer></script>
+
+<style>
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  h2, h3 {
+    text-align: center;
+    color: #2c3e50;
+  }
+
+  p.desc {
+    text-align: center;
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  /* ===== FORM ===== */
+  form {
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+    margin-bottom: 28px;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  input[type="file"] {
+    margin-top: 12px;
+    font-size: 13px;
+  }
+
+  button {
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: #4a6cf7;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+  }
+
+  /* ===== DISPLAY CURHAT ===== */
+  .display-section {
+    margin-top: 30px;
+  }
+
+  .curhat-card {
+    background: #ffffff;
+    padding: 16px;
+    margin-bottom: 14px;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    line-height: 1.7;
+  }
+
+  .curhat-card small {
+    display: block;
+    margin-top: 8px;
+    color: #888;
+    font-size: 12px;
+  }
+
+  .curhat-loading,
+  .curhat-empty,
+  .curhat-error {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+    font-size: 14px;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    margin: 30px 0 10px;
+  }
+</style>
 </head>
 
 <body>
-<h2>Upload Foto</h2>
+<div class="container">
 
-<input type="file" id="foto" accept="image/*"><br><br>
-<button id="uploadBtn">Upload</button>
+  <!-- ================= FORM CURHAT ================= -->
+  <h2>Curhat 7C</h2>
+  <p class="desc">
+    Tuliskan isi hatimu dengan jujur dan sopan.  
+    Tidak semua curhat akan ditampilkan.
+  </p>
 
-<p id="msg"></p>
+  <form id="curhatForm">
+    <textarea
+      id="curhat"
+      placeholder="Aku ingin bercerita tentang hari ini..."
+      required></textarea>
 
-<script src="js/config.js"></script>
-<script src="js/upload.js"></script>
+    <input type="file" id="photo" accept="image/*">
+
+    <button type="submit">Kirim Curhat</button>
+  </form>
+
+  <!-- ================= DISPLAY ================= -->
+  <div class="display-section">
+    <h3>Refleksi 3 Hari Terakhir</h3>
+    <div id="curhat-list"></div>
+  </div>
+
+  <footer>
+    Media refleksi • bukan media sosial
+  </footer>
+
+</div>
 </body>
 </html>
+<div style="text-align:center; margin-bottom:16px;">
+  <a href="curhat.html" class="nav-btn">
+    Kembali Menulis Curhat
+  </a>
+</div>
